@@ -1,6 +1,7 @@
 'use strict';
 
 {
+
   const timer = document.getElementById('timer');
   const start = document.getElementById('start');
   const stop = document.getElementById('stop');
@@ -11,7 +12,7 @@
   let elapsedTime = 0 ;
 
   function countUp(){
-    const d = new Date(Date.now() - startTime + elapsedTime);
+    const d = new Date(Date.now() - startTime + elapsedTime); 
     const m = String(d.getMinutes()).padStart(2,'0');
     const s = String(d.getSeconds()).padStart(2, '0');
     const ms = String(d.getMilliseconds()).padStart(3, '0');
@@ -21,9 +22,9 @@
       countUp();
     }, 10);
   }
-
+   // inactiveでopacityを効かす
   function setButtonStateInitial() {
-    start.classList.remove('inactive');
+    start.classList.remove('inactive');  
     stop.classList.add('inactive');
     reset.classList.add('inactive');
   }
@@ -42,16 +43,19 @@
 
   setButtonStateInitial();
 
+  // スタートボタンを押した時
   start.addEventListener('click', () =>{
+    // if分でinactiveが含まれていたら以降の処理をさせない
     if (start.classList.contains('inactive')===true){
       return;
     }
+
     setButtonStateRunning();
     startTime = Date.now();
     countUp();
   });
 
-   
+  // ストップボタンを押した時
   stop.addEventListener('click', () =>{
     if (stop.classList.contains('inactive')===true){
       return;
@@ -59,8 +63,9 @@
     setButtonStateStopped();
     clearTimeout(timeoutId);
     elapsedTime += Date.now() -  startTime;
-  });
+  }); 
 
+  // リセットボタンを押した時
   reset.addEventListener('click', () =>{
     if (reset.classList.contains('inactive')===true){
       return;
